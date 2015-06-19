@@ -28,6 +28,7 @@ RUN mv hadoop-$HADOOP_VERSION $HADOOP_PREFIX
 ADD etc/hadoop/* $HADOOP_PREFIX/etc/hadoop/
 
 # Set up SSH.
+RUN apt-get -y install openssh-server openssh-client
 ENV SSH_PORT 2112
 ADD config/ssh /root/.ssh
 RUN ssh-keygen -q -N "" -t rsa -f /root/.ssh/id_rsa && \
