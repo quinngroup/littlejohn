@@ -1,4 +1,9 @@
-# Installs all the core data science tools, including Anaconda and OpenCV.
+# Installs all the core data science tools. These are as follows:
+# - Anaconda (makes Python environments easy)
+# - Additional Python modules (installed with pip)
+# - OpenCV (and its dependencies, installed through apt-get)
+# - Scala
+# - Julia
 
 FROM magsol/lj-hadoop
 MAINTAINER Shannon Quinn "magsol@gmail.com"
@@ -8,14 +13,16 @@ ENV DEBIAN_FRONTEND noninteractive
 
 ENV ANACONDA_VERSION 2.2.0
 ENV OPENCV_VERSION 3.0.0
+ENV SCALA_VERSION 2.10.5
 
-# Install any apt prerequisites.
-RUN apt-get -y update
+# Go ahead and install Julia, along with updating package dependencies
+# for Anaconda and OpenCV.
+RUN add-apt-repository -y ppa:staticfloat/juliareleases && apt-get -y update
 RUN apt-get -y install cmake git libgtk2.0-dev pkg-config libavcodec-dev \
-    libavformat-dev libswscale-dev libtbb2 libtbb-dev libtiff5-dev \
+    libavformat-dev libswscale-dev libtbb2 libtbb-dev libtiff5-dev julia \
     libjasper-dev libdc1394-22-dev unzip build-essential libblas-dev liblapack-dev
 
-# Install Anaconda first.
+# Install Anaconda.
 RUN echo 'export PATH=/opt/conda/bin:$PATH' > conda.sh && mv conda.sh /etc/profile.d/
 RUN wget https://repo.continuum.io/archive/Anaconda-$ANACONDA_VERSION-Linux-x86_64.sh
 RUN /bin/bash /Anaconda-$ANACONDA_VERSION-Linux-x86_64.sh -b -p /opt/conda && \
@@ -44,5 +51,11 @@ RUN cmake -D CMAKE_BUILD_TYPE=Release -D CMAKE_INSTALL_PREFIX=/opt/opencv \
     ..
 RUN make -j && make install
 ENV PATH /opt/opencv:$PATH
+
+# Finally, install Scala.
+RUN wget http://downloads.typesafe.com/scala/$SCALA_VERSION/scala-$SCALA_VERSION.tgz && \
+    tar zxvf scala-$SCALA_VERSION.tgz && rm scala-$SCALA_VERSION.tgz && \
+    mv scala-$SCALA_VERSION /opt/scala
+ENV PATH /opt/scala/bin:$PATH
 
 CMD ["bin/bash"]
