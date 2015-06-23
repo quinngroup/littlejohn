@@ -28,7 +28,12 @@ RUN mv hadoop-$HADOOP_VERSION $HADOOP_PREFIX
 ADD etc/hadoop/* $HADOOP_PREFIX/etc/hadoop/
 
 # Set up SSH.
-RUN apt-get -y install openssh-server openssh-client runit
+RUN apt-get -y update
+RUN apt-get -y install openssh-server openssh-client runit && \
+    mkdir -p /var/run/sshd && echo 'root:root' | chpasswd
+RUN sed -i "s/session.*required.*pam_loginuid.so/#session    required     pam_loginuid.so/" /etc/pam.d/sshd
+RUN sed -i "s/PermitRootLogin without-password/#PermitRootLogin without-password/" /etc/ssh/sshd_config
+
 ENV SSH_PORT 2112
 ENV SSH_OPTS -o StrictHostKeyChecking=no -p $SSH_PORT
 ADD config/ssh /root/.ssh
@@ -46,7 +51,7 @@ RUN chmod 0600 /root/.ssh/config && \
 EXPOSE 2112
 
 # Expose the requisite ports for Hadoop.
-EXPOSE 9000 19888 50010 50020 50030 50060 50070 50075 50090 
+EXPOSE 9000:65535
 
 # Run the bootstrap script.
 ADD config/bootstrap/boostrap.sh /bootstrap.sh
