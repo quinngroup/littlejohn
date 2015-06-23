@@ -52,8 +52,3 @@ EXPOSE 2112
 
 # Expose the requisite ports for Hadoop.
 EXPOSE 9000:65535
-
-# Run the bootstrap script.
-ADD config/bootstrap/boostrap.sh /bootstrap.sh
-RUN chmod +x /bootstrap.sh
-CMD ["/bootstrap.sh"]
