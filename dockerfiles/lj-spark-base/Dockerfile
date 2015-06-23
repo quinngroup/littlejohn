@@ -1,6 +1,6 @@
 # Sets up and configures a base Spark installation, used by master and client.
 
-FROM magsol/lj-hadoop
+FROM magsol/lj-datascience
 MAINTAINER Shannon Quinn "magsol@gmail.com"
 
 USER root
