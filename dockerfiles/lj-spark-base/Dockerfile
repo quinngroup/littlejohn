@@ -20,3 +20,7 @@ RUN wget http://d3kbcqa49mib13.cloudfront.net/spark-$SPARK_VERSION.tgz && \
     tar zxvf spark-$SPARK_VERSION.tgz && rm spark-$SPARK_VERSION.tgz
 RUN mv hadoop-$SPARK_VERSION $SPARK_PREFIX
 
+# Run runit and stuff.
+ADD config/bootstrap/bootstrap.sh /bootstrap.sh
+RUN chmod +x /bootstrap.sh
+CMD ["/bootstrap.sh"]
