@@ -4,4 +4,4 @@
 # variable.
 
 # Some options you'll likely want to set:
-#export MESOS_log_dir=/var/log/mesos
+export MESOS_log_dir=/var/log/mesos
