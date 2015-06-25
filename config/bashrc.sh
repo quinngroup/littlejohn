@@ -119,5 +119,8 @@ export JAVA_HOME=/usr/lib/jvm/java-7-openjdk-amd64
 # Hadoop configuration.
 export HADOOP_PREFIX=/opt/hadoop
 export HADOOP_CONF_DIR=$HADOOP_PREFIX/etc/hadoop
-export PATH=$PATH:$HADOOP_PREFIX/bin
-export PATH=$PATH:$HADOOP_PREFIX/sbin
+export PATH=$PATH:$HADOOP_PREFIX/bin:$HADOOP_PREFIX/sbin
+
+# Mesos configuration.
+export MESOS_PREFIX=/opt/mesos
+export PATH=$PATH:$MESOS_PREFIX/bin:$MESOS_PREFIX/sbin
