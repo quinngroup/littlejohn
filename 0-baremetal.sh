@@ -12,6 +12,9 @@ HADOOP_PREFIX=/opt/hadoop
 MESOS_VERSION=0.22.1
 MESOS_PREFIX=/opt/mesos
 
+SPARK_VERSION 1.4.0-bin-hadoop2.6
+SPARK_PREFIX /opt/spark
+
 # Step 1: Perform the apt updates and install Docker.
 apt-get -y update
 apt-get -y install build-essential wget openjdk-7-jdk python-dev python-boto \
@@ -35,6 +38,14 @@ rm hadoop-$HADOOP_VERSION.tar.gz
 mv hadoop-$HADOOP_VERSION $HADOOP_PREFIX
 cp config/hadoop/etc/hadoop/* $HADOOP_PREFIX/etc/hadoop/  # Copy the config files over.
 
+# Step 4: Install Spark.
+# (yeah I know, install Spark on metal to run Spark in Docker. Talk to the
+# Mesos guys about that one; I don't code up these ridiculous requirements.)
+wget http://d3kbcqa49mib13.cloudfront.net/spark-$SPARK_VERSION.tgz && \
+    tar zxvf spark-$SPARK_VERSION.tgz && rm spark-$SPARK_VERSION.tgz
+mv spark-$SPARK_VERSION $SPARK_PREFIX
+cp config/spark/conf/* $SPARK_PREFIX/conf/
+
 # Step 4: Install Mesos.
 wget http://www.apache.org/dist/mesos/$MESOS_VERSION/mesos-$MESOS_VERSION.tar.gz
 tar zxvf mesos-$MESOS_VERSION.tar.gz
@@ -43,7 +54,7 @@ mkdir mesos-$MESOS_VERSION/build
 
 cd mesos-$MESOS_VERSION/build
 ../configure --prefix=$MESOS_PREFIX
-make -j 8 && make check && make install
+make -j && make check && make install
 cd -
 cp -r config/mesos/var/ $MESOS_PREFIX/
 
