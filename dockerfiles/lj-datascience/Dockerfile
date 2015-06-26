@@ -9,7 +9,9 @@ FROM magsol/lj-base
 MAINTAINER Shannon Quinn "magsol@gmail.com"
 
 USER root
-RUN echo 'deb http://ppa.launchpad.net/staticfloat/juliareleases/ubuntu trusty main' > /etc/apt/sources.list
+RUN apt-get -y update
+RUN apt-get -y install python-software-properties software-properties-common
+RUN add-apt-repository -y ppa:staticfloat/juliareleases
 ENV DEBIAN_FRONTEND noninteractive
 
 ENV ANACONDA_VERSION 2.2.0
@@ -22,7 +24,7 @@ ENV SBT_VERSION 0.13.8
 RUN apt-get -y update
 RUN apt-get -y install cmake git libgtk2.0-dev pkg-config libavcodec-dev \
     libavformat-dev libswscale-dev libtbb2 libtbb-dev libtiff5-dev julia \
-    libjasper-dev libdc1394-22-dev unzip build-essential libblas-dev liblapack-dev
+    libjasper-dev libdc1394-22-dev unzip libblas-dev liblapack-dev
 
 # Install Anaconda.
 RUN echo 'export PATH=/opt/conda/bin:$PATH' > conda.sh && mv conda.sh /etc/profile.d/
