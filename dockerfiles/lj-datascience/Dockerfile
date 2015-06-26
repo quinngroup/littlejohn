@@ -2,7 +2,7 @@
 # - Anaconda (makes Python environments easy)
 # - Additional Python modules (installed with pip)
 # - OpenCV (and its dependencies, installed through apt-get)
-# - Scala
+# - Scala and sbt
 # - Julia
 
 FROM magsol/lj-hadoop
@@ -14,6 +14,7 @@ ENV DEBIAN_FRONTEND noninteractive
 ENV ANACONDA_VERSION 2.2.0
 ENV OPENCV_VERSION 3.0.0
 ENV SCALA_VERSION 2.10.5
+ENV SBT_VERSION 0.13.8
 
 # Go ahead and install Julia, along with updating package dependencies
 # for Anaconda and OpenCV.
@@ -51,6 +52,12 @@ RUN cmake -D CMAKE_BUILD_TYPE=Release -D CMAKE_INSTALL_PREFIX=/opt/opencv \
     ..
 RUN make -j && make install
 ENV PATH /opt/opencv:$PATH
+
+# Install SBT.
+RUN wget https://dl.bintray.com/sbt/native-packages/sbt/$SBT_VERSION/sbt-$SBT_VERSION.tgz && \
+    tar zxvf sbt-$SBT_VERSION.tgz && rm sbt-$SBT_VERSION.tgz
+RUN mv sbt-$SBT_VERSION /opt/sbt
+ENV PATH /opt/sbt/bin:$PATH
 
 # Finally, install Scala.
 RUN wget http://downloads.typesafe.com/scala/$SCALA_VERSION/scala-$SCALA_VERSION.tgz && \
