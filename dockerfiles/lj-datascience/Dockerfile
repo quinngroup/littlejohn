@@ -18,7 +18,9 @@ ENV SBT_VERSION 0.13.8
 
 # Go ahead and install Julia, along with updating package dependencies
 # for Anaconda and OpenCV.
-RUN add-apt-repository -y ppa:staticfloat/juliareleases && apt-get -y update
+RUN apt-get -y update
+RUN add-apt-repository -y ppa:staticfloat/juliareleases
+RUN apt-get -y update
 RUN apt-get -y install cmake git libgtk2.0-dev pkg-config libavcodec-dev \
     libavformat-dev libswscale-dev libtbb2 libtbb-dev libtiff5-dev julia \
     libjasper-dev libdc1394-22-dev unzip build-essential libblas-dev liblapack-dev
