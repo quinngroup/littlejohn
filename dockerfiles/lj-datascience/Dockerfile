@@ -5,7 +5,7 @@
 # - Scala and sbt
 # - Julia
 
-FROM magsol/lj-hadoop
+FROM magsol/lj-base
 MAINTAINER Shannon Quinn "magsol@gmail.com"
 
 USER root
