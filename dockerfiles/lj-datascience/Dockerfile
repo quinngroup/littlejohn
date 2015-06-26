@@ -9,6 +9,7 @@ FROM magsol/lj-base
 MAINTAINER Shannon Quinn "magsol@gmail.com"
 
 USER root
+RUN echo 'deb http://ppa.launchpad.net/staticfloat/juliareleases/ubuntu trusty main' > /etc/apt/sources.list
 ENV DEBIAN_FRONTEND noninteractive
 
 ENV ANACONDA_VERSION 2.2.0
@@ -18,8 +19,6 @@ ENV SBT_VERSION 0.13.8
 
 # Go ahead and install Julia, along with updating package dependencies
 # for Anaconda and OpenCV.
-RUN apt-get -y update
-RUN add-apt-repository -y ppa:staticfloat/juliareleases
 RUN apt-get -y update
 RUN apt-get -y install cmake git libgtk2.0-dev pkg-config libavcodec-dev \
     libavformat-dev libswscale-dev libtbb2 libtbb-dev libtiff5-dev julia \
