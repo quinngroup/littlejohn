@@ -15,6 +15,8 @@ MESOS_PREFIX=/opt/mesos
 SPARK_VERSION 1.4.0-bin-hadoop2.6
 SPARK_PREFIX /opt/spark
 
+BUILD_PREFIX=BUILD/configuration
+
 # Step 1: Perform the apt updates and install Docker.
 apt-get -y update
 apt-get -y install build-essential wget openjdk-7-jdk python-dev python-boto \
@@ -26,8 +28,8 @@ wget -qO- https://get.docker.com/ | sh
 # - /etc/hosts
 # - bashrc
 # - Potentially SSH configuration later, if needed
-cp config/etc/hosts /etc/
-cp config/bashrc.sh ~/.bashrc
+cp $BUILD_PREFIX/etc/hosts /etc/
+cp $BUILD_PREFIX/bashrc.sh ~/.bashrc
 
 # Step 3: Install Hadoop. We're not strictly using Hadoop MapReduce so much
 # as HDFS; this is where we store the data long-term. Containers are just
@@ -36,7 +38,7 @@ wget http://mirrors.sonic.net/apache/hadoop/common/hadoop-$HADOOP_VERSION/hadoop
 tar zxvf hadoop-$HADOOP_VERSION.tar.gz
 rm hadoop-$HADOOP_VERSION.tar.gz
 mv hadoop-$HADOOP_VERSION $HADOOP_PREFIX
-cp config/hadoop/etc/hadoop/* $HADOOP_PREFIX/etc/hadoop/  # Copy the config files over.
+cp $BUILD_PREFIX/hadoop/etc/hadoop/* $HADOOP_PREFIX/etc/hadoop/  # Copy the config files over.
 
 # Step 4: Install Spark.
 # (yeah I know, install Spark on metal to run Spark in Docker. Talk to the
@@ -44,7 +46,7 @@ cp config/hadoop/etc/hadoop/* $HADOOP_PREFIX/etc/hadoop/  # Copy the config file
 wget http://d3kbcqa49mib13.cloudfront.net/spark-$SPARK_VERSION.tgz && \
     tar zxvf spark-$SPARK_VERSION.tgz && rm spark-$SPARK_VERSION.tgz
 mv spark-$SPARK_VERSION $SPARK_PREFIX
-cp config/spark/conf/* $SPARK_PREFIX/conf/
+cp $BUILD_PREFIX/spark/conf/* $SPARK_PREFIX/conf/
 
 # Step 4: Install Mesos.
 wget http://www.apache.org/dist/mesos/$MESOS_VERSION/mesos-$MESOS_VERSION.tar.gz
@@ -56,6 +58,6 @@ cd mesos-$MESOS_VERSION/build
 ../configure --prefix=$MESOS_PREFIX
 make -j && make check && make install
 cd -
-cp -r config/mesos/var/ $MESOS_PREFIX/
+cp -r $BUILD_PREFIX/mesos/var/ $MESOS_PREFIX/
 
 # Step 3: Pull down the Docker image and get to work.
