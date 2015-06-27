@@ -15,7 +15,7 @@ MESOS_PREFIX=/opt/mesos
 SPARK_VERSION 1.4.0-bin-hadoop2.6
 SPARK_PREFIX /opt/spark
 
-BUILD_PREFIX=BUILD/configuration
+BUILD_PREFIX=configuration
 
 # Step 1: Perform the apt updates and install Docker.
 apt-get -y update
