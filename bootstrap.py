@@ -1,5 +1,6 @@
 import argparse
 import os
+import shutil
 import socket
 import subprocess as sp
 
@@ -17,7 +18,7 @@ if __name__ == "__main__":
     args = vars(parser.parse_args())
     if os.path.exists("BUILD"):
         # Remove and start over.
-        os.rmdir("BUILD")
+        shutil.rmtree("BUILD")
     if not os.path.exists("BUILD"):
         sp.call(["mkdir", "-p", "BUILD/configuration"])
 
