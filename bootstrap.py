@@ -33,7 +33,7 @@ if __name__ == "__main__":
     ip_nodes = [socket.gethostbyname(n) for n in fqdn_nodes]
 
     # Step 1: Copy the baremetal script into the BUILD directory.
-    sp.call(["cp", "0-baremetal.sh BUILD/"])
+    sp.call(["cp", "0-baremetal.sh", "BUILD/"])
 
     # Step 2: Build the hosts file and copy over the needed bash scripts.
     hosts = """# Sample hosts file, pilfered yet again from Ubuntu 14.04.2.
