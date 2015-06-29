@@ -19,7 +19,7 @@ if __name__ == "__main__":
         # Remove and start over.
         os.rmdir("BUILD")
     if not os.path.exists("BUILD"):
-        sp.call("mkdir -p BUILD/configuration")
+        sp.call(["mkdir", "-p", "BUILD/configuration"])
 
     # Get a handle on all the hosts we're dealing with.
     slaves = [line.strip() for line in file(args['slaves'])]
@@ -32,7 +32,7 @@ if __name__ == "__main__":
     ip_nodes = [socket.gethostbyname(n) for n in fqdn_nodes]
 
     # Step 1: Copy the baremetal script into the BUILD directory.
-    sp.call("cp 0-baremetal.sh BUILD/")
+    sp.call(["cp", "0-baremetal.sh BUILD/"])
 
     # Step 2: Build the hosts file and copy over the needed bash scripts.
     hosts = """# Sample hosts file, pilfered yet again from Ubuntu 14.04.2.
@@ -52,14 +52,14 @@ ff02::2 ip6-allrouters"""
     f = open("BUILD/configuration/etc/hosts", "w")
     f.write(hosts)
     f.close()
-    sp.call("cp templates/bashrc.sh BUILD/configuration/")
+    sp.call(["cp", "templates/bashrc.sh", "BUILD/configuration/"])
 
     # Step 3: Configure Hadoop.
     hadoop_dir = "BUILD/configuration/hadoop/etc/hadoop"
-    sp.call("mkdir -p %s" % hadoop_dir)
-    sp.call("cp templates/hadoop/etc/hadoop/hdfs-site.xml %s" % hadoop_dir)
-    sp.call("cp templates/hadoop/etc/hadoop/container-executor.cfg %s" % hadoop_dir)
-    sp.call("cp templates/hadoop/etc/hadoop/hadoop-env.sh %s" % hadoop_dir)
+    sp.call(["mkdir", "-p", hadoop_dir])
+    sp.call(["cp", "templates/hadoop/etc/hadoop/hdfs-site.xml", hadoop_dir])
+    sp.call(["cp", "templates/hadoop/etc/hadoop/container-executor.cfg", hadoop_dir])
+    sp.call(["cp", "templates/hadoop/etc/hadoop/hadoop-env.sh", hadoop_dir])
     f = open("%s/slaves" % hadoop_dir, "w")  # Slaves file.
     f.write("\n".join(slaves))
     f.close()
@@ -78,10 +78,10 @@ ff02::2 ip6-allrouters"""
 
     # Step 4: Configure Spark.
     spark_dir = "BUILD/configuration/spark/conf"
-    sp.call("mkdir -p %s" % spark_dir)
-    sp.call("cp templates/spark/conf/docker.properties %s" % spark_dir)
-    sp.call("cp templates/spark/conf/metrics.properties %s" % spark_dir)
-    sp.call("cp templates/spark/conf/spark-env.sh %s" % spark_dir)
+    sp.call(["mkdir", "-p", spark_dir])
+    sp.call(["cp", "templates/spark/conf/docker.properties", spark_dir])
+    sp.call(["cp", "templates/spark/conf/metrics.properties", spark_dir])
+    sp.call(["cp", "templates/spark/conf/spark-env.sh", spark_dir])
     f = open("%s/slaves" % spark_dir, "w")  # Slaves file.
     f.write("\n".join(slaves))
     f.close()
@@ -95,9 +95,9 @@ ff02::2 ip6-allrouters"""
 
     # Step 5: Configure Mesos.
     mesos_dir = "BUILD/configuration/mesos/var/mesos/deploy"
-    sp.call("mkdir -p %s" % mesos_dir)
-    sp.call("cp templates/mesos/var/mesos/deploy/mesos-deploy-env.sh %s" % mesos_dir)
-    sp.call("cp templates/mesos/var/mesos/deploy/mesos-master-env.sh %s" % mesos_dir)
+    sp.call(["mkdir", "-p", mesos_dir])
+    sp.call(["cp", "templates/mesos/var/mesos/deploy/mesos-deploy-env.sh", mesos_dir])
+    sp.call(["cp", "templates/mesos/var/mesos/deploy/mesos-master-env.sh", mesos_dir])
     f = open("%s/slaves" % mesos_dir, "w")  # Slaves file.
     f.write("\n".join(slaves))
     f.close()
