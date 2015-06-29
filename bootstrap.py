@@ -2,6 +2,7 @@ import argparse
 import os
 import shutil
 import socket
+import stat
 import subprocess as sp
 
 if __name__ == "__main__":
@@ -14,6 +15,8 @@ if __name__ == "__main__":
         help = "Name of the Mesos master node.")
     parser.add_argument("-n", "--namenode", required = True,
         help = "Name of the Hadoop NameNode.")
+    parser.add_argument("-u", "--user", required = True,
+        help = "Username to use to SCP/SSH into the masters and workers.")
 
     args = vars(parser.parse_args())
     if os.path.exists("BUILD"):
@@ -112,15 +115,24 @@ ff02::2 ip6-allrouters"""
     f.write(mesosslave.replace("MESOS_MASTER_HERE", args['master']))
     f.close()
 
+    # Last step: create a bash script that will initialize everything on every client.
+    u = args['user']
+    f = open("initialize.sh", "w")
+    f.write("#!/bin/bash\n")
+    for n in fqdn_nodes:
+        # SCP.
+        f.write("scp -r BUILD/ %s@%s:~/\n" % (u, n))
+
+        # Pipe the commands through SSH.
+        f.write("ssh -t %s@%s \"cd BUILD; sudo ./0-baremetal.sh; cd ..; rm -rf BUILD/\"\n" % (u, n))
+    f.close()
+    st = os.stat("initialize.sh")
+    os.chmod("initialize.sh", st.st_mode | stat.S_IEXEC)
+
     # All done!
     print "All finished!"
-    print "Next step: transfer the BUILD/ directory and its contents to all " \
-        "the nodes in your cluster. Effectively for each node, you'll need to " \
-        "run three commands: \n"
-    print "1: scp -r BUILD/ user@node:~/"
-    print "2: ssh user@node"
-    print "3: cd BUILD && sudo ./0-baremetal.sh\n"
-    print "Once it's finished, you should be able to delete the BUILD/ directory."
+    print "Next step: run the auto-generated \"initialize.sh\" script, which " + \
+        "will perform the necessary installs across all your machines."
 
 
 
