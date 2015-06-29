@@ -66,13 +66,13 @@ ff02::2 ip6-allrouters"""
     f = open("templates/hadoop/etc/hadoop/core-site.xml", "r")
     coresite = f.read()
     f.close()
-    f = open("%s/core-site.xml", "w")  # core-site.xml
+    f = open("%s/core-site.xml" % hadoop_dir, "w")  # core-site.xml
     f.write(coresite.replace("HADOOP_NAMENODE_HERE", args['namenode']))
     f.close()
     f = open("templates/hadoop/etc/hadoop/mapred-site.xml", "r")
     coresite = f.read()
     f.close()
-    f = open("%s/mapred-site.xml", "w")  # mapred-site.xml
+    f = open("%s/mapred-site.xml" % hadoop_dir, "w")  # mapred-site.xml
     f.write(coresite.replace("HADOOP_NAMENODE_HERE", args['namenode']))
     f.close()
 
