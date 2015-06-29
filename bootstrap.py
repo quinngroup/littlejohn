@@ -23,7 +23,7 @@ if __name__ == "__main__":
 
     # Get a handle on all the hosts we're dealing with.
     slaves = [line.strip() for line in file(args['slaves'])]
-    nodes = slaves
+    nodes = slaves[:]
     if args['master'] not in nodes:
         nodes.append(args['master'])
     if args['namenode'] not in nodes:
