@@ -12,8 +12,8 @@ HADOOP_PREFIX=/opt/hadoop
 MESOS_VERSION=0.22.1
 MESOS_PREFIX=/opt/mesos
 
-SPARK_VERSION 1.4.0-bin-hadoop2.6
-SPARK_PREFIX /opt/spark
+SPARK_VERSION=1.4.0-bin-hadoop2.6
+SPARK_PREFIX=/opt/spark
 
 BUILD_PREFIX=configuration
 
