@@ -121,11 +121,6 @@ export HADOOP_PREFIX=/opt/hadoop
 export HADOOP_CONF_DIR=$HADOOP_PREFIX/etc/hadoop
 export PATH=$PATH:$HADOOP_PREFIX/bin:$HADOOP_PREFIX/sbin
 
-# Spark configuration.
-export SPARK_PREFIX=/opt/spark
-export SPARK_HOME=SPARK_PREFIX
-export PATH=$PATH:$SPARK_PREFIX/bin
-
 # Mesos configuration.
 export MESOS_PREFIX=/opt/mesos
 export PATH=$PATH:$MESOS_PREFIX/bin:$MESOS_PREFIX/sbin
