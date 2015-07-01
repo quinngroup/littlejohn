@@ -58,4 +58,4 @@ RUN wget http://downloads.typesafe.com/scala/$SCALA_VERSION/scala-$SCALA_VERSION
     mv scala-$SCALA_VERSION /opt/scala
 ENV PATH /opt/scala/bin:$PATH
 
-CMD ["/bin/bash"]
+ENTRYPOINT ["/bin/bash"]
