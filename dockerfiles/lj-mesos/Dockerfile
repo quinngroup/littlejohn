@@ -27,7 +27,6 @@ RUN echo "docker,mesos" > /etc/mesos-slave/containerizers
 RUN echo "5mins" > /etc/mesos-slave/executor_registration_timeout
 
 # Some configuration options.
-EXPOSE 5050
 ENV MESOS_PORT 5050
 ENV MESOS_LOG_DIR /var/log/mesos
 ENV MESOS_REGISTRY in_memory
