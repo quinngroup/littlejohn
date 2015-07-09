@@ -23,4 +23,4 @@ EXPOSE 2181 2888 3888
 
 WORKDIR /opt/zookeeper
 VOLUME ["/opt/zookeeper/conf", "/tmp/zookeeper"]
-RUN /bin/bash /opt/run.sh
+CMD ["/opt/run.sh"]
