@@ -20,7 +20,9 @@ RUN echo 1 | dd of=/var/lib/zookeeper/myid
 # Install mesos.
 RUN apt-get -y install mesos
 RUN mkdir -p /etc/mesos-master
-RUN echo in_memory | dd of=/etc/mesos-master/registry
+RUN echo "in_memory" > /etc/mesos-master/registry
+RUN echo "docker,mesos" > /etc/mesos-slave/containerizers
+RUN echo "5mins" > /etc/mesos-slave/executor_registration_timeout
 
 # Some configuration options.
 EXPOSE 5050
