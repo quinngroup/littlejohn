@@ -7,7 +7,7 @@ ENV DEBIAN_FRONTEND noninteractive
 ENV MARATHON_VERSION 0.8.2
 
 # Install the custom apt-keys so we can have nice things / Mesos.
-RUN apt-key adv --keyserver keyserver.ubuntu.com --recv E56151BF &&
+RUN apt-key adv --keyserver keyserver.ubuntu.com --recv E56151BF && \
     echo "deb http://repos.mesosphere.io/ubuntu/ trusty main" | \
         tee /etc/apt/sources.list.d/mesosphere.list
 RUN apt-get update
