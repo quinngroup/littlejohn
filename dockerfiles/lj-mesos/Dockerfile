@@ -5,6 +5,8 @@
 FROM ubuntu:14.04.2
 MAINTAINER Shannon Quinn <magsol@gmail.com>
 
+ENV DEBIAN_FRONTEND noninteractive
+
 # Install the custom apt-keys so we can have nice things / Mesos.
 RUN apt-key adv --keyserver keyserver.ubuntu.com --recv E56151BF &&
     echo "deb http://repos.mesosphere.io/ubuntu/ trusty main" | \

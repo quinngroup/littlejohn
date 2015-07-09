@@ -5,6 +5,7 @@
 FROM ubuntu:14.04.2
 MAINTAINER Shannon Quinn <magsol@gmail.com>
 
+ENV DEBIAN_FRONTEND noninteractive
 ENV ZOOKEEPER_VERSION 3.4.6
 
 RUN apt-get update && apt-get install -y openjdk-7-jre-headless wget

@@ -3,6 +3,7 @@
 FROM ubuntu:14.04.2
 MAINTAINER Shannon Quinn <magsol@gmail.com>
 
+ENV DEBIAN_FRONTEND noninteractive
 ENV MARATHON_VERSION 0.8.2
 
 # Install the custom apt-keys so we can have nice things / Mesos.
