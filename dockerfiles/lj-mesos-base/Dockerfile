@@ -1,6 +1,5 @@
-# Installs Mesos. Defaults to master, but this can be overridden using entrypoint.
-# Based heavily on sekka1/garland's mesosphere-docker-base-image and
-# mesosphere-docker-mesos-master.
+# Installs Mesos. Based almost entirely on sekka1/garland's
+# mesosphere-docker-base-image and mesosphere-docker-mesos-master.
 
 FROM ubuntu:14.04.2
 MAINTAINER Shannon Quinn <magsol@gmail.com>
@@ -23,13 +22,5 @@ RUN echo 1 | dd of=/var/lib/zookeeper/myid
 RUN apt-get -y install mesos
 RUN mkdir -p /etc/mesos-master
 RUN echo "in_memory" > /etc/mesos-master/registry
-RUN echo "docker,mesos" > /etc/mesos-slave/containerizers
-RUN echo "5mins" > /etc/mesos-slave/executor_registration_timeout
 
-# Some configuration options.
-ENV MESOS_LOG_DIR /var/log/mesos
-ENV MESOS_REGISTRY in_memory
-ENV MESOS_WORK_DIR /var/lib/mesos
-ENV MESOS_LOGGING_LEVEL INFO
-
-ENTRYPOINT ["mesos-master"]
+CMD ["/bin/bash"]
