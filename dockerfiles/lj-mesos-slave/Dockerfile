@@ -5,6 +5,9 @@ MAINTAINER Shannon Quinn <magsol@gmail.com>
 
 ENV DEBIAN_FRONTEND noninteractive
 
+# This cracks me up to no end.
+RUN wget -qO- https://get.docker.com/ | sh
+
 # Would be nice to run Docker images out of Mesos.
 RUN mkdir -p /etc/mesos-slave
 RUN echo "docker,mesos" > /etc/mesos-slave/containerizers
