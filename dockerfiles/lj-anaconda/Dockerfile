@@ -9,7 +9,8 @@ ENV DEBIAN_FRONTEND noninteractive
 # Install Anaconda.
 RUN echo 'export PATH=/opt/conda/bin:$PATH' > conda.sh && mv conda.sh /etc/profile.d/
 RUN wget https://repo.continuum.io/miniconda/Miniconda-latest-Linux-x86_64.sh
-RUN /bin/bash https://repo.continuum.io/miniconda/Miniconda-latest-Linux-x86_64.sh -b -p /opt/conda && \
+RUN chmod +x Miniconda-latest-Linux-x86_64.sh && \
+    /bin/bash Miniconda-latest-Linux-x86_64.sh -b -p /opt/conda && \
     rm Miniconda-latest-Linux-x86_64.sh
 ENV PATH /opt/conda/bin:$PATH
 
