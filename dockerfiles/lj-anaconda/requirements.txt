@@ -1,7 +1,6 @@
 # Scientific computing.
 thunder-python
 picos
-bottleneck
 sima
 
 # Visualization.
