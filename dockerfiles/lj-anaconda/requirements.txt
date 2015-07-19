@@ -1,0 +1,15 @@
+# Scientific computing.
+thunder-python
+picos
+bottleneck
+sima
+
+# Visualization.
+click
+plotly
+
+# Other.
+mechanize
+tweepy
+pycallgraph
+awscli
