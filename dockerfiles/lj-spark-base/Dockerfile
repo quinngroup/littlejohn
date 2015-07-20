@@ -1,13 +1,12 @@
 # Sets up and configures a base Spark installation, used by master and client.
 
-FROM magsol/lj-datascience
+FROM magsol/anaconda
 MAINTAINER Shannon Quinn "magsol@gmail.com"
 
-USER root
 ENV DEBIAN_FRONTEND noninteractive
 
 # Set some useful environment variables.
-ENV SPARK_VERSION 1.4.0-bin-hadoop2.6
+ENV SPARK_VERSION 1.4.1-bin-hadoop2.6
 ENV SPARK_PREFIX /opt/spark
 ENV PYSPARK_PYTHON python
 
@@ -19,9 +18,4 @@ ENV PATH $PATH:$SPARK_PREFIX/bin
 ENV PATH $PATH:$SPARK_PREFIX/sbin
 
 # Move over the configuration files.
-ADD config/spark/conf/* $SPARK_PREFIX/conf/
-
-# Run runit and stuff.
-ADD config/bootstrap/bootstrap.sh /bootstrap.sh
-RUN chmod +x /bootstrap.sh
-CMD ["/bootstrap.sh"]
+ADD spark/conf/* $SPARK_PREFIX/conf/
