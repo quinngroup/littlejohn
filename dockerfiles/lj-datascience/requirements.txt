@@ -7,6 +7,7 @@ sima
 # Visualization.
 click
 plotly
+toyplot
 
 # Other.
 mechanize
