@@ -16,7 +16,7 @@ RUN apt-get -y update
 RUN apt-get -y install openssh-server openssh-client runit && \
     mkdir -p /var/run/sshd && echo 'root:root' | chpasswd
 RUN sed -i "s/session.*required.*pam_loginuid.so/#session    required     pam_loginuid.so/" /etc/pam.d/sshd
-RUN sed -i "s/PermitRootLogin without-password/#PermitRootLogin without-password/" /etc/ssh/sshd_config
+RUN sed -i "s/PermitRootLogin without-password/PermitRootLogin yes/" /etc/ssh/sshd_config
 
 ENV SSH_PORT 22
 ENV SSH_OPTS -o StrictHostKeyChecking=no -p $SSH_PORT
