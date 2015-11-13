@@ -8,11 +8,9 @@ import subprocess as sp
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description = 'LittleJohn Bootstrapper',
         epilog = 'lol moar bitz', add_help = 'How to use',
-        prog = 'python littlejohn_setup.py <args>')
+        prog = 'python bootstrap.py <args>')
     parser.add_argument("-s", "--slaves", required = True,
         help = "Path to a text file containing the list of slaves.")
-    parser.add_argument("-m", "--master", required = True,
-        help = "Name of the Mesos master node.")
     parser.add_argument("-n", "--namenode", required = True,
         help = "Name of the Hadoop NameNode.")
     parser.add_argument("-u", "--user", required = True,
@@ -28,8 +26,6 @@ if __name__ == "__main__":
     # Get a handle on all the hosts we're dealing with.
     slaves = [line.strip() for line in file(args['slaves'])]
     nodes = slaves[:]
-    if args['master'] not in nodes:
-        nodes.append(args['master'])
     if args['namenode'] not in nodes:
         nodes.append(args['namenode'])
     fqdn_nodes = [socket.getfqdn(n) for n in nodes]
@@ -78,41 +74,6 @@ ff02::2 ip6-allrouters"""
     f.close()
     f = open("%s/mapred-site.xml" % hadoop_dir, "w")  # mapred-site.xml
     f.write(coresite.replace("HADOOP_NAMENODE_HERE", args['namenode']))
-    f.close()
-
-    # Step 4: Configure Spark.
-    spark_dir = "BUILD/configuration/spark/conf"
-    sp.call(["mkdir", "-p", spark_dir])
-    sp.call(["cp", "templates/spark/conf/docker.properties", spark_dir])
-    sp.call(["cp", "templates/spark/conf/metrics.properties", spark_dir])
-    sp.call(["cp", "templates/spark/conf/spark-env.sh", spark_dir])
-    f = open("%s/slaves" % spark_dir, "w")  # Slaves file.
-    f.write("\n".join(slaves))
-    f.close()
-    f = open("templates/spark/conf/spark-defaults.conf", "r")
-    defaults = f.read()
-    f.close()
-    f = open("%s/spark-defaults.conf" % spark_dir, "w")  # spark-defaults.conf
-    f.write(defaults.replace("HADOOP_NAMENODE_HERE", args['namenode'])
-        .replace("MESOS_MASTER_HERE", args['master']))
-    f.close()
-
-    # Step 5: Configure Mesos.
-    mesos_dir = "BUILD/configuration/mesos/var/mesos/deploy"
-    sp.call(["mkdir", "-p", mesos_dir])
-    sp.call(["cp", "templates/mesos/var/mesos/deploy/mesos-deploy-env.sh", mesos_dir])
-    sp.call(["cp", "templates/mesos/var/mesos/deploy/mesos-master-env.sh", mesos_dir])
-    f = open("%s/slaves" % mesos_dir, "w")  # Slaves file.
-    f.write("\n".join(slaves))
-    f.close()
-    f = open("%s/masters" % mesos_dir, "w")  # Masters file.
-    f.write("%s\n" % args['master'])
-    f.close()
-    f = open("templates/mesos/var/mesos/deploy/mesos-slave-env.sh", "r")
-    mesosslave = f.read()
-    f.close()
-    f = open("%s/mesos-slave-env.sh" % mesos_dir, "w")
-    f.write(mesosslave.replace("MESOS_MASTER_HERE", args['master']))
     f.close()
 
     # Last step: create a bash script that will initialize everything on every client.

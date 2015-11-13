@@ -1,4 +1,4 @@
-<?xml version="1.0"?>
+<?xml version="1.0" encoding="UTF-8"?>
 <?xml-stylesheet type="text/xsl" href="configuration.xsl"?>
 <!--
   Licensed under the Apache License, Version 2.0 (the "License");
@@ -18,8 +18,14 @@
 
 <configuration>
     <property>
-        <name>mapred.job.tracker</name>
-        <value>HADOOP_NAMENODE_HERE:54311</value>
-        <description>The host and port that the MapReduce job tracker runs at. If "local", then jobs are run in-process as a single map and reduce task.</description>
+        <name>hadoop.tmp.dir</name>
+        <value>/opt/hdfs/tmp/</value>
+        <description>Temporary directories.</description>
+    </property>
+
+    <property>
+        <name>fs.default.name</name>
+        <value>hdfs://atlantis.cs.uga.edu:54310</value>
+        <description>The name of the default file system.  A URI whose scheme and authority determine the FileSystem implementation.  The uri's scheme determines the config property (fs.SCHEME.impl) naming the FileSystem implementation class.  The uri's authority is used to determine the host, port, etc. for a filesystem.</description>
     </property>
 </configuration>
