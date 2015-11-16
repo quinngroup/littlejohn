@@ -13,7 +13,7 @@ Stats are per-node, with the exception of the first.
  - 128GB memory (8x16GB) 1600MT/s
  - Dual AMD Opteron 4334 3.1GHz 6-core CPUs
  - 2TB 7.2K RPM SATA 3Gbps
- - Ubuntu Desktop 14.04.2 LTS
+ - RHEL 6.0
 
 ## License
 
