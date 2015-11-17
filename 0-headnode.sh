@@ -47,38 +47,3 @@ yum -y install mesos
 
 # STEP 4: Install Docker.
 wget -qO- https://get.docker.com/ | sh
-
-
-mkdir /opt/spark
-wget http://d3kbcqa49mib13.cloudfront.net/spark-1.5.0-bin-hadoop1.tgz && \
-	tar zxvf spark-1.5.0-bin-hadoop1.tgz && rm spark-1.5.0-bin-hadoop1.tgz
-mv spark-1.5.0-bin-hadoop1 /opt/spark/
-wget http://d3kbcqa49mib13.cloudfront.net/spark-1.5.0-bin-hadoop2.6.tgz && \
-	tar zxvf spark-1.5.0-bin-hadoop2.6.tgz && rm spark-1.5.0-bin-hadoop2.6.tgz
-mv spark-1.5.0-bin-hadoop2.6 /opt/spark/
-
-wget http://repo.continuum.io/miniconda/Miniconda-latest-Linux-x86_64.sh
-chmod +x Miniconda-latest-Linux-x86_64.sh && ./Miniconda-latest-Linux-x86_64.sh -b -p /opt/conda
-rm Miniconda-latest-Linux-x86_64.sh
-export PATH=/opt/conda/bin:$PATH
-conda update -y --all
-conda install -y astropy beautiful-soup blaze-core bokeh bottleneck cython dask decorator \
-	freetype future gensim h5py hdf5 ipython joblib libpng libsodium libtiff libxml2 llvmlite \
-	matplotlib nltk numba numpy opencv pandas pep8 pillow pip protobuf pyamg \
-	scikit-image scikit-learn scipy seaborn shapely sqlalchemy sqlite starcluster toolz \
-	tornado twisted xray
-pip install thunder-python
-pip install bolt-python
-pip install picos
-pip install sima
-pip install click
-pip install plotly
-pip install toyplot
-pip install mechanize
-pip install tweepy
-pip install pycallgraph
-pip install awscli
-pip install DAWG
-pip install chainer
-pip install optunity
-pip install mahotas
