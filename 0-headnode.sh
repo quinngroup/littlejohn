@@ -13,7 +13,6 @@
 # STEP 0: Define some variables so that the version of this software we use
 # is easy to update.
 HADOOP_VERSION=2.7.1
-SPARK_VERSION=1.5.2
 ssh-keygen -t rsa -b 2048 -f ~/.ssh/id_rsa -q -N ""
 cat ~/.ssh/id_rsa.pub > ~/.ssh/authorized_keys
 
@@ -25,10 +24,10 @@ yum install -y git vim
 yum install -y make gcc gcc-c++ kernel-devel cmake
 
 # These packages allow installing "non-sanctioned" RH packages.
-wget http://dl.fedoraproject.org/pub/epel/epel-release-latest-7.noarch.rpm
-rpm -ivh epel-release-latest-7.noarch.rpm
+wget http://dl.fedoraproject.org/pub/epel/epel-release-latest-6.noarch.rpm
+rpm -ivh epel-release-latest-6.noarch.rpm
 yum -y update
-rm epel-release-latest-7.noarch.rpm
+rm epel-release-latest-6.noarch.rpm
 
 # STEP 2: Install Hadoop.
 wget http://www.gtlib.gatech.edu/pub/apache/hadoop/common/hadoop-${HADOOP_VERSION}/hadoop-${HADOOP_VERSION}.tar.gz
