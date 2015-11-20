@@ -7,8 +7,6 @@
 # - Basic RHEL-related dependencies
 # - Mesos on metal
 # - Hadoop (for HDFS) on metal
-# - Docker on metal
-# - Lots of docker containers
 
 # STEP 0: Define some variables so that the version of this software we use
 # is easy to update.
@@ -22,12 +20,6 @@ yum install -y java-1.7.0-*
 yum install -y lapack* blas*
 yum install -y git vim
 yum install -y make gcc gcc-c++ kernel-devel cmake
-
-# These packages allow installing "non-sanctioned" RH packages.
-wget http://dl.fedoraproject.org/pub/epel/epel-release-latest-6.noarch.rpm
-rpm -ivh epel-release-latest-6.noarch.rpm
-yum -y update
-rm epel-release-latest-6.noarch.rpm
 
 # STEP 2: Install Hadoop.
 wget http://www.gtlib.gatech.edu/pub/apache/hadoop/common/hadoop-${HADOOP_VERSION}/hadoop-${HADOOP_VERSION}.tar.gz
