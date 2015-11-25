@@ -6,7 +6,7 @@ MAINTAINER Shannon Quinn "magsol@gmail.com"
 ENV DEBIAN_FRONTEND noninteractive
 
 # Set some useful environment variables.
-ENV SPARK_VERSION 1.4.1-bin-hadoop2.6
+ENV SPARK_VERSION 1.5.2-bin-hadoop2.6
 ENV SPARK_PREFIX /opt/spark
 ENV PYSPARK_PYTHON python
 ENV SPARK_SSH_PORT 22
