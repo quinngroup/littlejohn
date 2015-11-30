@@ -1,0 +1,21 @@
+# Scientific computing.
+thunder-python
+bolt-python
+picos
+sima
+
+# Visualization.
+click
+plotly
+toyplot
+
+# Other.
+mechanize
+tweepy
+pycallgraph
+awscli
+DAWG
+#pycuda
+#scikit-cuda
+chainer
+optunity
